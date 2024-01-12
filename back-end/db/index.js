@@ -1,7 +1,8 @@
 const path = require('path');
-const { Pool, Client } = require('pg');
+
+const { Pool} = require('pg');
+
 require('dotenv').config({
-    override: true,
     path: path.join(__dirname, 'development.env')
 });
 
@@ -17,9 +18,11 @@ async function asyncCall() {
     try {
         const { rows } = await pool.query('SELECT current_user');
         const currentUser = rows[0]['current_user']
-        console.log(rows);
+        console.log(currentUser);
     } catch (err) {
         console.error(err);
     } 
 };
 asyncCall()
+
+module.exports = pool;
