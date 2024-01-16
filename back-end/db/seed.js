@@ -10,9 +10,14 @@ async function seed() {
                                 email VARCHAR ( 255 ) UNIQUE NOT NULL
                          );`)
         }).then(() => {
-            console.log("done")
-        }).then(() => {
-            console.log("done")
+            return db.query(`INSERT INTO account
+                            (username, password, email)
+                            VALUES 
+                            ('yuliia', 433416, 'juliayakubiv@gmail.com'),
+                            ('admin', 111111, 'test@gmail.com')
+                            RETURNING*;`)
+        }).then((data) => {
+            console.log(data.rows)
         })
 }
 
