@@ -1,8 +1,7 @@
 const db = require (`../db/index`)
 
 exports.selectAllAccounts = () => {
-    console.log("hello")
-    return db.query(`SELECT * FROM account;`)
+    return db.query(`SELECT * FROM accounts;`)
         .then(({rows}) => {
             return rows;
         });
