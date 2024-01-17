@@ -2,9 +2,12 @@ const path = require('path');
 
 const { Pool} = require('pg');
 
+const ENV = process.env.NODE_ENV || 'development' || 'test';
+
 require('dotenv').config({
-    path: path.join(__dirname, 'development.env')
+    path: path.join(__dirname, `${ENV}.env`)
 });
+console.log(ENV)
 
 const pool = new Pool({
     user: process.env.USER,
@@ -13,5 +16,7 @@ const pool = new Pool({
     password: process.env.PASSWORD,
     port: process.env.PORT
 })
-
+if (!process.env.DATABASE) {
+    throw new Error('PGDATABASE not set');
+  }
 module.exports = pool;

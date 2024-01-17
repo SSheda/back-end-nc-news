@@ -6,3 +6,13 @@ exports.selectAllAccounts = () => {
             return rows;
         });
 }
+exports.authorization = (logDetails) => {
+    return db.query(`SELECT * FROM accounts;`)
+        .then(({rows}) => {
+            let user = rows.find((el)=>{
+                return el.username === logDetails.username
+            })
+            console.log(user)
+            return rows;
+        });
+}

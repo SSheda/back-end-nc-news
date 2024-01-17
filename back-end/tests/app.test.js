@@ -39,3 +39,26 @@ describe("GET /api/account", () => {
     })
 })
 
+describe("POST /api/log-in", () => {
+    test("200: responds with an array of objects(accounts), each of which should be with the correct properties", () => {
+        const loginDetails = {username: 'rogersop', password: "fttth"}
+        return request(app)
+            .post("/api/log-in")
+            .send(loginDetails)
+            .expect(200)
+            .then((response) => {
+                const access = response.body.access;
+                expect(accounts).toHaveLength(1);
+                accounts.forEach((access) => {
+                    expect(account).toMatchObject({
+                        user_id: expect.any(Number),
+                        username: expect.any(String),
+                        password: expect.any(String),
+                        email: expect.any(String),
+                        avatar_url: expect.any(String)
+                    });
+                });
+            });
+    })
+})
+
