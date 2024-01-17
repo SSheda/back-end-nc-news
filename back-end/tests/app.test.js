@@ -18,46 +18,25 @@ describe('Sample Test', () => {
     })
 })
 
-describe("GET /api/account", () => {
-    test("200: responds with an array of objects(accounts), each of which should be with the correct properties", () => {
+describe("POST /api/signup", () => {
+    test("201: responds with an object of a new user containing correct properties", () => {
+        const createUser = {username: 'yuliia', password: "efef4fv@!", email: 'testing@email.com'}
         return request(app)
-            .get("/api/account")
-            .expect(200)
+            .post("/api/signup")
+            .send(createUser)
+            .expect(201)
             .then((response) => {
-                const accounts = response.body.accounts;
-                expect(accounts).toHaveLength(4);
-                accounts.forEach((account) => {
-                    expect(account).toMatchObject({
-                        user_id: expect.any(Number),
-                        username: expect.any(String),
-                        password: expect.any(String),
-                        email: expect.any(String),
-                        avatar_url: expect.any(String)
-                    });
-                });
-            });
-    })
-})
+                const newUser = response.body.newUser;
 
-describe("POST /api/log-in", () => {
-    test("200: responds with an array of objects(accounts), each of which should be with the correct properties", () => {
-        const loginDetails = {username: 'rogersop', password: "fttth"}
-        return request(app)
-            .post("/api/log-in")
-            .send(loginDetails)
-            .expect(200)
-            .then((response) => {
-                const access = response.body.access;
-                expect(accounts).toHaveLength(1);
-                accounts.forEach((access) => {
-                    expect(account).toMatchObject({
-                        user_id: expect.any(Number),
-                        username: expect.any(String),
-                        password: expect.any(String),
-                        email: expect.any(String),
-                        avatar_url: expect.any(String)
-                    });
-                });
+                expect(newUser.password).not.toBe(createUser.password)
+
+                expect(newUser).toEqual({
+                    user_id: 1,
+                    username: 'yuliia',
+                    password: expect.any(String),
+                    email: 'testing@email.com',
+                    avatar_url: null
+                });                
             });
     })
 })

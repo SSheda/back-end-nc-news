@@ -7,19 +7,19 @@ async function seed(data) {
         .then(() => {
             return db.query(`CREATE TABLE accounts (
                                 user_id serial PRIMARY KEY,
-                                username VARCHAR ( 50 ) UNIQUE NOT NULL,
-                                password VARCHAR ( 50 ) NOT NULL,
-                                email VARCHAR ( 255 ) UNIQUE NOT NULL,
+                                username VARCHAR ( 500 ) UNIQUE NOT NULL,
+                                password VARCHAR ( 500 ) NOT NULL,
+                                email VARCHAR ( 500 ) UNIQUE NOT NULL,
                                 avatar_url VARCHAR
                          );`)
-        }).then(() => {
+        })/* .then(() => {
             return db.query(format(`INSERT INTO accounts
                             (username, password, email, avatar_url)
                             VALUES 
                             %L
                             RETURNING*;`,
                             data.accountData.map(({username, password, email, avatar_url})=> [username, password, email, avatar_url])))
-        }).then(() => {})
+        }) */.then(() => {})
 }
 module.exports = seed;
 //seed(data)
