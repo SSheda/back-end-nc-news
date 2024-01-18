@@ -20,6 +20,8 @@ describe('Sample Test', () => {
     })
 })
 
+/*-----------------------------------------------------------------------------------------------*/
+
 describe("GET /api", () => {
     test("200: responds with an object describing all the available endpoints on available API", () => {
         return request(app)
@@ -41,6 +43,9 @@ describe("GET /api", () => {
             });
     });
 });
+
+/*-----------------------------------------------------------------------------------------------*/
+
 describe("404 Path not found", () => {    
     test("404: responds with an error if path is invalid", () => {
         return request(app)
@@ -51,6 +56,9 @@ describe("404 Path not found", () => {
             });
     });
 });
+
+/*-----------------------------------------------------------------------------------------------*/
+
 describe("POST /api/signup", () => {
     test("201: responds with an object of a new user containing correct properties", () => {
         const createUser = {username: 'yuliia', password: "fvfvf@657ggtHJ", email: 'testing5@email.com'}
@@ -124,11 +132,7 @@ describe("POST /api/signup", () => {
     })
 })
 
-
-
-
-
-
+/*-----------------------------------------------------------------------------------------------*/
 
 describe("POST /api/login", () => {
     test("201: responds with an object of a new user containing correct properties", () => {
@@ -210,7 +214,6 @@ describe("GET /api/topics", () => {
             .expect(200)
             .then((response) => {
                 const topics = response.body.topics;
-                console.log(topics)
                 expect(topics).toHaveLength(3);
                 topics.forEach((topic) => {
                     expect(topic).toMatchObject({
@@ -218,6 +221,82 @@ describe("GET /api/topics", () => {
                         slug: expect.any(String)
                     });
                 });
+            });
+    });
+});
+
+/*-----------------------------------------------------------------------------------------------*/
+
+describe("GET /api/articles", () => {
+    test(`200: responds with an articles array of article objects, each of which should be with the correct properties`, () => {
+        return request(app)
+            .get("/api/articles")
+            .expect(200)
+            .then((response) => {
+                const articles = response.body.article;
+                expect(articles.length).toBe(13)
+                articles.forEach((article) => {
+                    expect(article).toMatchObject({
+                        article_id: expect.any(Number),
+                        title: expect.any(String),
+                        topic: expect.any(String),
+                        author: expect.any(String),
+                        body: expect.any(String),
+                        created_at: expect.any(String),
+                        likes: expect.any(Number),
+                        article_img_url: expect.any(String),
+                    });
+                });
+            });
+    });
+    test(`200: responds with an articles array sorted by date in descending order`, () => {
+        return request(app)
+            .get("/api/articles")
+            .expect(200)
+            .then((response) => {
+                const articles = response.body.article;
+
+                expect(articles.length).toBe(13);
+                expect(articles).toBeSortedBy("created_at", { descending: true });
+            });
+    });
+});
+
+/*-----------------------------------------------------------------------------------------------*/
+
+describe("GET /api/articles/:article_id", () => {
+    test(`200: responds with an article object that has got the correct properties`, () => {
+        return request(app)
+            .get("/api/articles/10")
+            .expect(200)
+            .then((response) => {
+                const article = response.body.article;
+                expect(article).toMatchObject({
+                    article_id: expect.any(Number),
+                    title: expect.any(String),
+                    topic: expect.any(String),
+                    author: expect.any(String),
+                    body: expect.any(String),
+                    created_at: expect.any(String),
+                    likes: expect.any(Number),
+                    article_img_url: expect.any(String),
+                });
+            });
+    });
+    test(`400: responds with an error message if article_id is not a valid type`, () => {
+        return request(app)
+            .get("/api/articles/banana")
+            .expect(400)
+            .then(({ body }) => {
+                expect(body.msg).toBe('Bad request');
+            });
+    });
+    test(`404: responds with an error message if article_id does not exist`, () => {
+        return request(app)
+            .get("/api/articles/14")
+            .expect(404)
+            .then(({ body }) => {
+                expect(body.msg).toBe('Path not found');
             });
     });
 });

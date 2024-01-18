@@ -4,6 +4,7 @@ const { postSignUp, postLogIn } = require('./controllers/accountController');
 const { handlePsqlErrors, handleServerError, handleCustomerErrors, handleBadRequestError } = require('./errors/errors');
 const { getAllEndpoints } = require('./controllers/endpointsController');
 const { getAllTopics } = require('./controllers/topicsController');
+const { getAllArticles, getArticleById } = require('./controllers/articlesController');
 
 const app = express()
 
@@ -14,6 +15,8 @@ app.get("/api", getAllEndpoints)
 app.post  ('/api/signup', postSignUp)    
 app.post  ('/api/login', postLogIn)    
 app.get("/api/topics", getAllTopics);
+app.get("/api/articles", getAllArticles);
+app.get("/api/articles/:article_id", getArticleById)
 
 app.all('*', (req, res) => {
   res.status(404).send({ msg: "Path not found" });
