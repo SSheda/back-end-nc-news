@@ -12,14 +12,14 @@ async function seed(data) {
                                 email VARCHAR ( 500 ) UNIQUE NOT NULL,
                                 avatar_url VARCHAR
                          );`)
-        })/* .then(() => {
+        }).then(() => {
             return db.query(format(`INSERT INTO accounts
                             (username, password, email, avatar_url)
                             VALUES 
                             %L
                             RETURNING*;`,
                             data.accountData.map(({username, password, email, avatar_url})=> [username, password, email, avatar_url])))
-        }) */.then(() => {})
+        }).then(() => {})
 }
 module.exports = seed;
 //seed(data)

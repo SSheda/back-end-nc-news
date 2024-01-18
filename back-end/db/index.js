@@ -7,7 +7,6 @@ const ENV = process.env.NODE_ENV || 'development' || 'test';
 require('dotenv').config({
     path: path.join(__dirname, `${ENV}.env`)
 });
-
 const pool = new Pool({
     user: process.env.USER,
     host: process.env.HOST,

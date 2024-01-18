@@ -1,14 +1,17 @@
 const express = require('express')
-const { postSignUp } = require('./controllers/accountController')
+const { postSignUp, postLogIn } = require('./controllers/accountController');
+const { handlePsqlErrors } = require('./errors/errors');
 
 const app = express()
 
 app.use(express.json());
-//app.use(cors());
 
-//app.get   ('/signup', (req, res))      //sign up page
-//app.get   ('/login', (req, res))       //log in page
-app.post  ('/api/signup', postSignUp)      //create a new user in db
-//app.post  ('/login', (req, res))       // authenticate a current user
-//app.get   ('/logout', (req, res))      //log a user out
+app.get('/api', (req, res) => {
+    res.send('hello world');
+  })
+app.post  ('/api/signup', postSignUp)    
+app.post  ('/api/login', postLogIn)    
+
+app.use (handlePsqlErrors)
+
 module.exports = app;

@@ -11,7 +11,7 @@
   "version": "1.0.0",
   "main": "test.js",
   "scripts": {
-    "dev": "nodemon ./app.js",
+    "dev": "nodemon ./listen.js",
     "seed": "node ./db/run-seed.js",
     "test": "jest"
   },
