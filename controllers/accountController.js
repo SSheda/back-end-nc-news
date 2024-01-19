@@ -1,5 +1,5 @@
-const { createNewUser, logInUser } = require("../models/accountModels");
-const { validateEmail, validatePassword } = require("../utils/checkExists");
+const {  logInUser, createNewUser } = require("../models/accountModels");
+const { validateEmail, validatePassword } = require("../utils/dataValidation");
 
 exports.postSignUp = (req, res, next) => {
   const userDetails = req.body

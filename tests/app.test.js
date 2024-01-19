@@ -561,7 +561,7 @@ describe("POST /api/articles/:article_id/comments", () => {
     test(`404: responds with an error message if user does not exist`, () => {
         const newComment = {
             body: "My new comment",
-            username: "jgjjh"
+            username: "jgjjhdvsdvvvvvvvv"
         };
         return request(app)
             .post("/api/articles/12/comments")

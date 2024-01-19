@@ -7,8 +7,7 @@ exports.checkExists = (table, column, value) => {
     
     return db.query(queryString, [value])
         .then(({rows}) => { 
-
-            if (!rows.length) {                
+            if (!rows.length) {  
                 return Promise.reject({ status: 404, msg: 'Path not found' })
             }
         });
