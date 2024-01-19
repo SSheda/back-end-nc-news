@@ -10,11 +10,13 @@
   },
   "name": "back-end",
   "version": "1.0.0",
-  "main": "test.js",
+  "main": "listen.js",
   "scripts": {
     "dev": "nodemon ./listen.js",
     "seed": "node ./db/run-seed.js",
-    "test": "jest"
+    "test": "jest",
+    "start": "node listen.js",
+    "seed-prod": "NODE_ENV=production npm run seed"
   },
   "keywords": [],
   "author": "",
