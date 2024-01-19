@@ -3,7 +3,10 @@ const db = require("./index.js");
 const format = require('pg-format');
 
 async function seed(data) {
-    return db.query(`DROP TABLE IF EXISTS articles;`)
+    return db.query(`DROP TABLE IF EXISTS comments;`)
+        .then(() => {
+            return db.query(`DROP TABLE IF EXISTS articles;`)
+        })
         .then(() => {
             return db.query(`DROP TABLE IF EXISTS topics;`)
         })
@@ -38,6 +41,16 @@ async function seed(data) {
             );`)
         })
         .then(() => {
+            return db.query(`CREATE TABLE comments (
+                            comment_id SERIAL PRIMARY KEY,
+                            body VARCHAR NOT NULL,
+                            likes INT DEFAULT 0 NOT NULL,
+                            author VARCHAR REFERENCES accounts(username) NOT NULL,
+                            article_id INT REFERENCES articles(article_id) NOT NULL,
+                            created_at TIMESTAMP DEFAULT NOW()
+            );`);
+        })
+        .then(() => {
             return db.query(format(`INSERT INTO accounts
                             (username, password, email, avatar_url)
                             VALUES 
@@ -58,6 +71,14 @@ async function seed(data) {
                                     VALUES %L 
                                     RETURNING *;`,
                 formattedArticleData.map(({ title, topic, author, body, created_at, likes = 0, article_img_url }) => [title, topic, author, body, created_at, likes, article_img_url])))
+        })
+        .then(() => {
+            const formattedCommentsData = data.commentsData.map(convertTimestampToDate);
+            return db.query(format(`INSERT INTO comments 
+                                    (body, likes, author, article_id, created_at) 
+                                    VALUES %L 
+                                    RETURNING *;`,
+                formattedCommentsData.map(({ body, likes = 0, author, article_id, created_at }) => [body, likes, author, article_id, created_at])))
         })
 }
 module.exports = seed;

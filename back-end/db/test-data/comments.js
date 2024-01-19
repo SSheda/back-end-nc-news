@@ -116,6 +116,7 @@ module.exports = [
       votes: 20,
       author: "icellusedkars",
       likes: 9,
+      article_id: 1,
       created_at: 1584205320000,
     },
     {
