@@ -3,8 +3,8 @@ const { Pool} = require('pg');
 
 const config = {};
 
-const ENV = process.env.NODE_ENV || 'development' || 'test';
-
+const ENV = process.env.NODE_ENV || 'development' || 'test' || 'production';
+console.log(ENV)
 require('dotenv').config({
     path: path.join(__dirname, `${ENV}.env`)
 });
