@@ -1,5 +1,5 @@
 const { validateEmail, validatePassword } = require("../utils/dataValidation")
-
+//validating data
 describe('validateEmail function', () => {
     test('email has recipient name', () => {
         expect(validateEmail("test@gmail.com")).toBe(true)
