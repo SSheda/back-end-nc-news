@@ -1,4 +1,4 @@
-const { selectAllArticles, selectArticleById, selectArticleByAuthor } = require("../back-end/models/articlesModel");
+const { selectAllArticles, selectArticleById, selectArticleByAuthor } = require("../models/articlesModel");
 
 exports.getAllArticles = (req, res, next) => {
     const query = req.query

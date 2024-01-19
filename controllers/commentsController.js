@@ -1,5 +1,5 @@
-const { selectAllComments, selectCommentById, selectCommentsByArticleId, insertComment, changeArticleById, deleteSingleComment } = require("../back-end/models/commentsModel");
-const { checkExists } = require("../back-end/utils/checkExists");
+const { selectAllComments, selectCommentById, selectCommentsByArticleId, insertComment, changeArticleById, deleteSingleComment } = require("../models/commentsModel");
+const { checkExists } = require("../utils/checkExists");
 
 exports.getAllComments = (req, res, next) => {
     //console.log("controller")

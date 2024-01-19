@@ -1,4 +1,4 @@
-const { selectAllEndpoints } = require("../back-end/models/endpointsModel");
+const { selectAllEndpoints } = require("../models/endpointsModel");
 
 exports.getAllEndpoints = (req, res, next) => {
     
