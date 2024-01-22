@@ -10,7 +10,7 @@ const { getAllComments, getCommentById, getCommentsByArticleId, postSingleCommen
 const app = express()
 
 app.use(express.json());
-app.use(cors());
+app.use(cors());//
 
 app.get("/api", getAllEndpoints)
 app.post('/api/signup', postSignUp)    
