@@ -4,7 +4,7 @@ const path = require('path');
 
 const ENV = process.env.NODE_ENV || 'development';
 
-console.log(ENV);
+//console.log(ENV);
 
 dotenv.config({
     path: path.join(__dirname, `${ENV}.env`)

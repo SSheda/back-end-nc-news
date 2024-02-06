@@ -7,7 +7,7 @@ exports.validateEmail = (email) => {
 }
 
 exports.validatePassword = (password) => {
-    const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*[\W_]).{8,}$/
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
     if (password.match(regex)){
         return true
     }

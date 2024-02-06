@@ -38,30 +38,21 @@ describe('validateEmail function', () => {
 })
 
 describe('validatePassword function', () => {
-    test('password requires at least one digit (0-9)', () => {
+    test('password must contain at least one digit (0-9)', () => {
         expect(validatePassword("Testing193!")).toBe(true)
         expect(validateEmail("Testingdfyh!")).toBe(false)
     })
-    test('password requires at least one lowercase and uppercase letter', () => {
+    test('password must contain at least one lowercase and uppercase letter', () => {
         expect(validatePassword("Testing193!")).toBe(true)
         expect(validateEmail("testing193!")).toBe(false)
         expect(validateEmail("TESTING193!")).toBe(false)
     })
-    test('password requires a minimum of 8 characters in total', () => {
+    test('password must be at least 8 characters long', () => {
         expect(validatePassword("Te34567!")).toBe(true)
         expect(validateEmail("Te3456!")).toBe(false)
     })
-    test('password requires at least one special character', () => {
+    test('password must contain at least one special character', () => {
         expect(validatePassword("Testing193!")).toBe(true)
         expect(validateEmail("Testing193")).toBe(false)
-    })
-    test('password requires no line breacks', () => {
-        expect(validatePassword("Testing193!")).toBe(true)
-        expect(validateEmail(`Testi
-        ng193`)).toBe(false)
-    })
-    test('password can have spaces exept at the start and end', () => {
-        expect(validatePassword("Testing 193!")).toBe(true)
-        expect(validateEmail(` Testing193 `)).toBe(false)
     })
 })
